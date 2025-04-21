@@ -19,32 +19,61 @@ export class GildedRose {
 
   computeUpdate(item: Item) {
     const { name, quality, sellIn } = item;
-    if (name === "Sulfuras, Hand of Ragnaros") {
-      return item;
-    }
-    item.sellIn = item.sellIn - 1;
-    if (name === "Aged Brie") {
-      item.quality = Math.min(50, item.quality + (item.sellIn < 0 ? 2 : 1));
+    const keyName = name.toLowerCase();
+
+    if (keyName.includes("sulfuras")) {
       return item;
     }
 
-    if (name === "Backstage passes to a TAFKAL80ETC concert") {
-      let itemIncrease = 1;
+    if (keyName.includes("aged brie")) {
+      return this.agedBrieUpdate(item);
+    }
+
+    if (keyName.includes("backstage")) {
+      return this.backstageUpdate(item);
+    }
+
+    if (keyName.includes("conjured")) {
+      return this.conjuredUpdater(item);
+    }
+
+    return this.defaultUpdate(item);
+  }
+
+  agedBrieUpdate(item: Item) {
+    item.sellIn -= 1;
+    item.quality = Math.min(50, item.quality + (item.sellIn < 0 ? 2 : 1));
+    return item;
+  }
+
+  conjuredUpdater(item: Item): Item {
+    item.sellIn -= 1;
+
+    item.quality = Math.max(item.quality - (item.sellIn < 0 ? 4 : 2), 0);
+
+    return item;
+  }
+
+  backstageUpdate(item: Item) {
+    item.sellIn -= 1;
+    const { sellIn } = item;
+    item.quality = Math.min(50, item.quality + 1);
+
+    if (sellIn < 11) {
       item.quality = Math.min(50, item.quality + 1);
-
-      if (sellIn < 11) {
-        item.quality = Math.min(50, item.quality + 1);
-      }
-      if (sellIn < 6) {
-        item.quality = Math.min(50, item.quality + 1);
-      }
-      if (sellIn === 0) {
-        item.quality = 0;
-      }
-      return item;
     }
-    item.quality = Math.max(item.quality - (item.sellIn < 0 ? 2 : 1), 0);
+    if (sellIn < 6) {
+      item.quality = Math.min(50, item.quality + 1);
+    }
+    if (sellIn <= 0) {
+      item.quality = 0;
+    }
+    return item;
+  }
 
+  defaultUpdate(item: Item) {
+    item.sellIn -= 1;
+    item.quality = Math.max(item.quality - (item.sellIn < 0 ? 2 : 1), 0);
     return item;
   }
 
