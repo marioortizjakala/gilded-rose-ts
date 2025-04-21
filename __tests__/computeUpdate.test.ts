@@ -33,7 +33,7 @@ describe("computeUpdate", () => {
   it("should call conjuredUpdater for Conjured item", () => {
     const item = new Item("Conjured Mana Cake", 5, 10);
     const gildedRose = new GildedRose([item]);
-    const spy = jest.spyOn(gildedRose, "conjuredUpdater");
+    const spy = jest.spyOn(gildedRose, "conjuredUpdate");
 
     gildedRose.computeUpdate(item);
 

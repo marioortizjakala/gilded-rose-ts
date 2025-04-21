@@ -1,6 +1,6 @@
 import { items } from "../__fixtures__/gilded-rose.data";
 import { Item, GildedRose } from "../app/gilded-rose";
-import * from './golden-master-text-test'
+
 describe("Gilded Rose", function () {
   it("should foo", function () {
     const gildedRose = new GildedRose([new Item("foo", 0, 0)]);

@@ -22,7 +22,7 @@ export class GildedRose {
     const keyName = name.toLowerCase();
 
     if (keyName.includes("sulfuras")) {
-      return item;
+      return this.sulfurasUpdate(item);
     }
 
     if (keyName.includes("aged brie")) {
@@ -34,10 +34,14 @@ export class GildedRose {
     }
 
     if (keyName.includes("conjured")) {
-      return this.conjuredUpdater(item);
+      return this.conjuredUpdate(item);
     }
 
     return this.defaultUpdate(item);
+  }
+
+  sulfurasUpdate(item: Item) {
+    return item;
   }
 
   agedBrieUpdate(item: Item) {
@@ -46,7 +50,7 @@ export class GildedRose {
     return item;
   }
 
-  conjuredUpdater(item: Item): Item {
+  conjuredUpdate(item: Item): Item {
     item.sellIn -= 1;
 
     item.quality = Math.max(item.quality - (item.sellIn < 0 ? 4 : 2), 0);
