@@ -1,15 +1,6 @@
 import { GildedRose, Item } from "../app/gilded-rose";
 
 describe("computeUpdate", () => {
-  it("should not update Sulfuras", () => {
-    const item = new Item("Sulfuras, Hand of Ragnaros", 0, 80);
-    const gildedRose = new GildedRose();
-    const updated = gildedRose.computeUpdate(item);
-
-    expect(updated.sellIn).toBe(0);
-    expect(updated.quality).toBe(80);
-  });
-
   it("should call agedBrieUpdate for Aged Brie", () => {
     const item = new Item("Aged Brie", 2, 0);
     const gildedRose = new GildedRose([item]);

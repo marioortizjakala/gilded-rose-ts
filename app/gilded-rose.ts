@@ -18,7 +18,7 @@ export class GildedRose {
   }
 
   computeUpdate(item: Item) {
-    const { name, quality, sellIn } = item;
+    const { name } = item;
     const keyName = name.toLowerCase();
 
     if (keyName.includes("sulfuras")) {
