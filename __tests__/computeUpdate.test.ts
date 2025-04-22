@@ -40,12 +40,14 @@ describe("computeUpdate", () => {
     expect(spy).toHaveBeenCalledWith(item);
   });
 
-  it("should return unchanged item for Sulfuras", () => {
-    const item = new Item("Sulfuras, Hand of Ragnaros", 10, 80);
-    const gildedRose = new GildedRose([item]);
+  it("should call sulfuras for Sulfuras item", () => {
+    const item = new Item("Sulfuras, Hand of Ragnaros", 0, 80);
+    const gildedRose = new GildedRose();
+    const spy = jest.spyOn(gildedRose, "sulfurasUpdate");
 
-    const result = gildedRose.computeUpdate(item);
-    expect(result).toBe(item); // same instance
+    gildedRose.computeUpdate(item);
+
+    expect(spy).toHaveBeenCalledWith(item);
   });
 
   it("should call defaultUpdate for regular items", () => {
